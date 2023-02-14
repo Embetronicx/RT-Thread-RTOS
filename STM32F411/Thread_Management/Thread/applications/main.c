@@ -54,7 +54,7 @@ int main(void)
                             5,                  //Thread priority
                             10);                //Time slice in ticks
 
-    /* Create thread 1 */
+    /* Create thread 2 */
     threadId2 = rt_thread_create("thread2_fn",  //Name
                             thread2_function,   //Function address
                             RT_NULL,            //Thread function parameter
