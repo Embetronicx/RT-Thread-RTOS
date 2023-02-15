@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2018, RT-Thread Development Team
+ * Copyright (c) 2006-2021, RT-Thread Development Team
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -27,8 +27,8 @@ extern "C" {
 /**@{*/
 
 /**
- * rt_container_of - return the member address of ptr, if the type of ptr is the
- * struct type.
+ * rt_container_of - return the start address of struct type, while ptr is the
+ * member of struct type.
  */
 #define rt_container_of(ptr, type, member) \
     ((type *)((char *)(ptr) - (unsigned long)(&((type *)0)->member)))

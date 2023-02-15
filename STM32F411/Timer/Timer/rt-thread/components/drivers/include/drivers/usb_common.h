@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2018, RT-Thread Development Team
+ * Copyright (c) 2006-2021, RT-Thread Development Team
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -112,7 +112,7 @@ extern "C" {
 #define USB_STRING_CONFIG_INDEX         0x04
 #define USB_STRING_INTERFACE_INDEX      0x05
 #define USB_STRING_OS_INDEX             0x06
-#define USB_STRING_MAX                  USB_STRING_OS_INDEX
+#define USB_STRING_MAX                  0xff
 
 #define USB_STRING_OS                   "MSFT100A"
 
@@ -301,7 +301,7 @@ struct uconfig_descriptor
     rt_uint8_t iConfiguration;
     rt_uint8_t bmAttributes;
     rt_uint8_t MaxPower;
-    rt_uint8_t data[256];
+    rt_uint8_t data[2048];
 };
 typedef struct uconfig_descriptor* ucfg_desc_t;
 
@@ -390,24 +390,6 @@ struct usb_os_header_comp_id_descriptor
 };
 typedef struct usb_os_header_comp_id_descriptor * usb_os_header_desc_t;
 
-struct usb_os_function_comp_id_descriptor
-{
-    rt_list_t list;
-    rt_uint8_t bFirstInterfaceNumber;
-    rt_uint8_t reserved1;
-    rt_uint8_t compatibleID[8];
-    rt_uint8_t subCompatibleID[8];
-    rt_uint8_t reserved2[6];
-};
-typedef struct usb_os_function_comp_id_descriptor * usb_os_func_comp_id_desc_t;
-
-struct usb_os_comp_id_descriptor
-{
-    struct usb_os_header_comp_id_descriptor head_desc;
-    rt_list_t func_desc;
-};
-typedef struct usb_os_comp_id_descriptor * usb_os_comp_id_desc_t;
-
 struct usb_os_property_header
 {
     rt_uint32_t dwLength;
@@ -427,14 +409,14 @@ struct usb_os_proerty
 };
 typedef struct usb_os_proerty * usb_os_proerty_t;
 
-// Value	Description
-//  1	    A NULL-terminated Unicode String (REG_SZ)
-//  2	    A NULL-terminated Unicode String that includes environment variables (REG_EXPAND_SZ)
-//  3	    Free-form binary (REG_BINARY)
-//  4	    A little-endian 32-bit integer (REG_DWORD_LITTLE_ENDIAN)
-//  5	    A big-endian 32-bit integer (REG_DWORD_BIG_ENDIAN)
-//  6	    A NULL-terminated Unicode string that contains a symbolic link (REG_LINK)
-//  7	    Multiple NULL-terminated Unicode strings (REG_MULTI_SZ)
+// Value    Description
+//  1       A NULL-terminated Unicode String (REG_SZ)
+//  2       A NULL-terminated Unicode String that includes environment variables (REG_EXPAND_SZ)
+//  3       Free-form binary (REG_BINARY)
+//  4       A little-endian 32-bit integer (REG_DWORD_LITTLE_ENDIAN)
+//  5       A big-endian 32-bit integer (REG_DWORD_BIG_ENDIAN)
+//  6       A NULL-terminated Unicode string that contains a symbolic link (REG_LINK)
+//  7       Multiple NULL-terminated Unicode strings (REG_MULTI_SZ)
 #define USB_OS_PROPERTY_TYPE_REG_SZ                      0x01UL
 #define USB_OS_PROPERTY_TYPE_REG_EXPAND_SZ               0x02UL
 #define USB_OS_PROPERTY_TYPE_REG_BINARY                  0x03UL
@@ -556,6 +538,24 @@ struct ustorage_csw
 typedef struct ustorage_csw* ustorage_csw_t;
 
 #pragma pack()
+
+struct usb_os_comp_id_descriptor
+{
+    struct usb_os_header_comp_id_descriptor head_desc;
+    rt_list_t func_desc;
+};
+typedef struct usb_os_comp_id_descriptor * usb_os_comp_id_desc_t;
+
+struct usb_os_function_comp_id_descriptor
+{
+    rt_list_t list;
+    rt_uint8_t bFirstInterfaceNumber;
+    rt_uint8_t reserved1;
+    rt_uint8_t compatibleID[8];
+    rt_uint8_t subCompatibleID[8];
+    rt_uint8_t reserved2[6];
+};
+typedef struct usb_os_function_comp_id_descriptor * usb_os_func_comp_id_desc_t;
 
 /*
  * USB device event loop thread configurations

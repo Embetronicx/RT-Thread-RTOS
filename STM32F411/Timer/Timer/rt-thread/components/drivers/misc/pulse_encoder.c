@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2018, RT-Thread Development Team
+ * Copyright (c) 2006-2021, RT-Thread Development Team
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -8,7 +8,6 @@
  * 2019-08-08     balanceTWK   the first version
  */
 
-#include <rtthread.h>
 #include <rtdevice.h>
 
 static rt_err_t rt_pulse_encoder_init(struct rt_device *dev)
