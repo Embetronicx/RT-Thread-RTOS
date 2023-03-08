@@ -35,7 +35,7 @@ static void thread2_function(void *parameter)
         /* Receive mail from the mailbox */
         if (rt_mb_recv(mb, (rt_uint32_t *)&received_mail, RT_WAITING_FOREVER) == RT_EOK)
         {
-            LOG_D("Thread2: Got a mail from mailbox, the message:%ul\n", *received_mail);
+            LOG_D("Thread2: Got a mail from mailbox, the message:%u\n", *received_mail);
         }
     }
 }
